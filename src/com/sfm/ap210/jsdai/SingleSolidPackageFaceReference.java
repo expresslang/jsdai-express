@@ -1,0 +1,45 @@
+package com.sfm.ap210.jsdai;
+
+import jsdai.SAp210_electronic_assembly_interconnect_and_packaging_design_mim_lf.EAdvanced_face;
+import jsdai.SAp210_electronic_assembly_interconnect_and_packaging_design_mim_lf.EGeometric_item_specific_usage;
+import jsdai.SAp210_electronic_assembly_interconnect_and_packaging_design_mim_lf.EItem_identified_representation_usage;
+import jsdai.lang.SdaiException;
+
+public class SingleSolidPackageFaceReference implements FaceReference {
+	EAdvanced_face e_af;
+	String faceID;
+	EGeometric_item_specific_usage e_gisu;
+	
+	SingleSolidPackageFaceReference(EGeometric_item_specific_usage gisu, EAdvanced_face af) throws SdaiException
+	{
+		e_gisu = gisu;
+		e_af = af;
+		faceID = e_af.getPersistentLabel();
+	}
+	
+	public int compareTo(Object o) {
+		if (o instanceof FaceReference)
+			return this.toString().compareTo(((FaceReference)o).toString());
+		else
+			throw new ClassCastException("FaceReference expected.");
+	}
+
+	public EAdvanced_face getFace() {
+		return e_af;
+	}
+
+	public EItem_identified_representation_usage getIIRU() {
+		return e_gisu;
+	}
+
+	public String getFaceID()
+	{
+		return faceID;
+	}
+	
+	public String toString()
+	{
+		return "Face: "+faceID+" of package";
+	}
+
+}
